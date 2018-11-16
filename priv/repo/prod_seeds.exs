@@ -6,6 +6,9 @@
 # repositories directly:
 #
 #     Foo.Repo.insert!(%Foo.SomeSchema{})
+#     Foo.Repo.insert!(%Foo.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+#
+Foo.Repo.insert!(%Foo.Post{title: "Prod title", content: "", author: "Prod author" })
