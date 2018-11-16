@@ -1,9 +1,9 @@
 use Mix.Config
 
 config :foo, FooWeb.Endpoint,
-  http: [port: 8080],
+  http: [port: {:system, :integer, "FOO_HTTP_PORT"}],
   # This is critical for ensuring web-sockets properly authorize.
-  url: [host: "localhost", port: 8080],
+  url: [host: "localhost", port: {:system, :integer, "FOO_HTTP_PORT"}],
   # http: [port: {:system, "PORT"}],
   # url: [host: "localhost", port: {:system, "PORT"}], # This is critical for ensuring web-sockets properly authorize.
   cache_static_manifest: "priv/static/cache_manifest.json",
@@ -27,7 +27,7 @@ config :foo, FooWeb.Endpoint, secret_key_base: "LkuWAYWheEUv2SADqEEzUTW38N8ZexN/
 # Configure your database
 config :foo, Foo.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "foo_prod",
+  username: {:system, :string, "FOO_POSTGRES_USER"},
+  password: {:system, :string, "FOO_POSTGRES_PASSWORD"},
+  database: {:system, :string, "FOO_POSTGRES_DATABASE"},
   pool_size: 15

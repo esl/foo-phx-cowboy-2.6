@@ -42,6 +42,7 @@ defmodule Foo.Mixfile do
   defp deps do
     [
       {:distillery, "~> 2.0.12", runtime: false},
+      {:confex, "~> 3.3.1"},
       {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},

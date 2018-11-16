@@ -21,7 +21,7 @@ dev_build_release:
 	mix deps.get 
 	MIX_ENV=dev mix compile
 #	cd assets && brunch build --production && cd ..
-	#MIX_ENV=prod mix phx.digest
+	#MIX_ENV=dev mix phx.digest
 	MIX_ENV=dev mix release
 
 dev_create_schema: 
