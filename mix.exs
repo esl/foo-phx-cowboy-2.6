@@ -1,6 +1,10 @@
 defmodule Foo.Mixfile do
   use Mix.Project
 
+  defmacro mix_build_env() do
+    Mix.env()
+  end
+
   def project do
     [
       app: :foo,
@@ -18,10 +22,16 @@ defmodule Foo.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [
-      mod: {Foo.Application, []},
-      extra_applications: [:logger, :runtime_tools, :observer]
-    ]
+    case mix_build_env() do
+      :dev ->
+        [mod: {Foo.Application, []}, extra_applications: [:logger, :runtime_tools, :observer, :wx]]
+
+      _ ->
+        [
+          mod: {Foo.Application, []},
+          extra_applications: [:logger, :runtime_tools]
+        ]
+    end
   end
 
   # Type `mix help compile.app` for more information.
