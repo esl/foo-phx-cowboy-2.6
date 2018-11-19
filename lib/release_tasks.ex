@@ -7,6 +7,40 @@ defmodule Foo.ReleaseTasks do
     :ecto
   ]
 
+  # Capture the mix environment at build time
+
+  defmacro mix_build_env() do
+    Mix.env()
+  end
+
+  @doc """
+  Resolve environmental varibles embedded in the configuration if,
+  and only if the application has been compiled for the :prod environment
+  e.g. MIX_ENV=prod mix ...
+  Otherwise, just pass the config unchanged - because for :dev, and :test
+  environments we want to just hard code all these values anyway.
+  """
+  def resolve_config(config) do
+    require Logger
+
+    case mix_build_env() do
+      :prod ->
+        case Confex.Resolver.resolve(config) do
+          happy = {:ok, _config} ->
+            happy
+
+          unhappy = {:error, {code, msg}} when is_atom(code) and is_binary(msg) ->
+            Logger.error("#{inspect(code)}: #{inspect(msg)}:   ")
+            :init.stop(1)
+            # will never reach this line - but we keep it to keep the compiler happy
+            unhappy
+        end
+
+      _ ->
+        {:ok, config}
+    end
+  end
+
   def myapp, do: Application.get_application(__MODULE__)
 
   def repos, do: Application.get_env(myapp(), :ecto_repos, [])
@@ -68,13 +102,8 @@ defmodule Foo.ReleaseTasks do
 
   def migrations_path(repo), do: priv_path_for(repo, "migrations")
 
-  # Capture the mix environment at build time
-  defmacro mix_build_env() do
-    Atom.to_string(Mix.env())
-  end
-
   def seeds_path(repo) do
-    mix_env = mix_build_env()
+    mix_env = Atom.to_string(mix_build_env())
     IO.puts("Loading seeds file for env: #{inspect(mix_env)}")
     priv_path_for(repo, mix_env <> "_seeds.exs")
   end
