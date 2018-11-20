@@ -11,7 +11,7 @@ FROM bitwalker/alpine-elixir:1.7.4
 RUN apk update && apk add make && rm -rf /var/cache/apk/*
 
 COPY --from=builder \
-    /opt/app/_build/prod/rel/foo/releases/0.0.1/foo.tar.gz \
+    /opt/app/_build/prod/rel/foo/releases/*/foo.tar.gz \
     /opt/app/
 
 WORKDIR /opt/app
