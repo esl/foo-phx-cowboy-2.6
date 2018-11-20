@@ -34,7 +34,7 @@ environment :dev do
 end
 
 environment :prod do
-  set(include_erts: false)
+  set(include_erts: true)
   set(include_src: false)
   set(cookie: :erlang)
   set(vm_args: "rel/vm.args")
@@ -52,7 +52,6 @@ release :foo do
     applications: [
       :runtime_tools,
       :sasl,
-      :observer,
       :logger,
       {:phoenix, :permanent},
       {:foo, :permanent}

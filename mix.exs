@@ -24,7 +24,7 @@ defmodule Foo.Mixfile do
   def application do
     case mix_build_env() do
       :dev ->
-        [mod: {Foo.Application, []}, extra_applications: [:logger, :runtime_tools, :observer, :wx]]
+        [mod: {Foo.Application, []}, extra_applications: [:logger, :runtime_tools]]
 
       _ ->
         [
