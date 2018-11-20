@@ -1,0 +1,24 @@
+version: '3.0'
+
+volumes:
+  pg_data:
+
+networks:
+  ci:
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"  
+    environment:
+      - FOO_HTTP_PORT=8000
+      - FOO_POSTGRES_USER=postgres
+      - FOO_POSTGRES_PASSWORD=postgres
+      - FOO_POSTGRES_DATABASE=postgres
+      - FOO_POSTGRES_HOSTNAME=postgres
+      - FOO_POSTGRES_HOSTPORT=postgres
+    command:
+      - "foreground"
+    networks:
+      - ci

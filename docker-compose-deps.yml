@@ -1,0 +1,44 @@
+version: '3.0'
+
+volumes:
+  pg_data:
+
+networks:
+  ci:
+
+services:
+
+  postgres:
+    image: mdillon/postgis:10-alpine
+    labels:
+      com.toyota.product: "msfp"
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USERNAME: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - ci 
+
+        #  zookeeper:
+        #    hostname: zookeeper
+        #    image: 'bitnami/zookeeper:latest'
+        #    ports:
+        #      - '2181:2181'
+        #    environment:
+        #      - ALLOW_ANONYMOUS_LOGIN=yes
+        #
+        #  kafka:
+        #    hostname: kafka
+        #    depends_on:
+        #      - zookeeper
+        #    image: 'bitnami/kafka:latest'
+        #    ports:
+        #      - '9092:9092'
+        #    environment:
+        #      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+        #      - ALLOW_PLAINTEXT_LISTENER=yes
+
+

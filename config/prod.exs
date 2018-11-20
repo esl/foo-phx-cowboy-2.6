@@ -17,4 +17,6 @@ config :foo, Foo.Repo,
   username: {:system, :string, "FOO_POSTGRES_USER"},
   password: {:system, :string, "FOO_POSTGRES_PASSWORD"},
   database: {:system, :string, "FOO_POSTGRES_DATABASE"},
+  hostname: {:system, :string, "FOO_POSTGRES_HOSTNAME"},
+  hostport: {:system, :string, "FOO_POSTGRES_HOSTPORT"},
   pool_size: 15

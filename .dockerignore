@@ -1,5 +1,9 @@
+.git
 Dockerfile
+Makefile*
 README.md
 _build
+assets
 deps
+docker-compose*
 tags
